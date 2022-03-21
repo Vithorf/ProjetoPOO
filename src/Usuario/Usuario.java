@@ -7,6 +7,7 @@ public class Usuario {
     private String nome, email, senha;
     private Date dataCadastro;
     private ArrayList <Grupo> grupos = new ArrayList<Grupo>();
+
     public String getNome() {
         return nome;
     }
