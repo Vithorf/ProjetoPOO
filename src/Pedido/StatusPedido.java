@@ -1,3 +1,8 @@
 package Pedido;
 
-enum StatusPedido {CRIADO,CONFIRMADO,ENTREGE,CANCELADO};
+public class StatusPedido {
+    public static enum status {
+        CRIADO,CONFIRMADO,ENTREGE,CANCELADO
+    };
+
+}

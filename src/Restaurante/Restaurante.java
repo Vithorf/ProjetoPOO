@@ -8,7 +8,6 @@ import Usuario.Usuario;
 import Cozinha.Cozinha;
 import FormaPagamento.FormaPagamento;
 
-import java.math.BigDecimal;
 import java.util.Scanner;
 import java.text.Normalizer.Form;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.Date;
 
 public class Restaurante {
     private String nome;
-    private BigDecimal taxaFrete;
+    private float taxaFrete;
     private boolean ativo, aberto;
     private Date dataCadastro, dataAtualizacao;
     private Endereco endereco; 
@@ -26,70 +25,34 @@ public class Restaurante {
     private Cozinha cozinha;
     private ArrayList<FormaPagamento>formasPagamento = new ArrayList<FormaPagamento>();
     private ArrayList<Produto>produtos = new ArrayList<Produto>();
-    private int quantidadeProdutos;
     
-    public Restaurante() {
+
+
+    public Restaurante(String nome, float taxaFrete, boolean ativo, boolean aberto, Date dataCadastro,
+            Date dataAtualizacao, Endereco endereco, ArrayList<Usuario> responsaveis, Cozinha cozinha,
+            ArrayList<FormaPagamento> formasPagamento) {
                 
-                Scanner entrada = new Scanner(System.in);
-                Date now = new Date();
-                System.out.printf("Informe os dados do seu novo restaurante:\n");
-                
-                System.out.printf("Nome do restaurante:\n");
-                String nomeRestaurante = entrada.nextLine();
-
-                System.out.printf("Valor do frete em R$:\n");
-                BigDecimal freteRestaurante = entrada.nextBigDecimal();
-
-                System.out.printf("O restaurante está ativo? [y/n]\n");
-                String ativoRestaurante = entrada.nextLine();
-
-                System.out.printf("Informe quem é o primeiro responsável pelo restaurante\n(demais responsáveis poderão ser adicionados posteriormente)\n");
-                
-                Usuario responsavel = new Usuario();
-
-                System.out.printf("Nome:\n");
-                String nomeResp = entrada.nextLine();
-                responsavel.setNome(nomeResp);
-
-                System.out.printf("E-mail:\n");
-                String emailResp = entrada.nextLine();
-                responsavel.setEmail(emailResp);
-
-                System.out.printf("Senha:\n");
-                String senhaResp = entrada.nextLine();
-                responsavel.setSenha(senhaResp);
-
-                responsavel.setDataCadastro(now);
-                
-                // definir grupo e permiissão do grupo
-
-                System.out.printf("Informe o endereço do restaurante:\n");
-                
-                Endereco end = new Endereco();
-                
-                Cozinha cozinha = new Cozinha();
-                System.out.printf("Nome da Cozinha:\n");
-                String nomeCozinha = entrada.nextLine();
-                cozinha.setNome(nomeCozinha);
-
-                this.nome = nomeRestaurante;
-                this.taxaFrete = freteRestaurante;
-                this.ativo = ativoRestaurante=="yes"?true:false;
-                this.aberto = false;
-                this.dataCadastro = now;
-                this.dataAtualizacao = now;
-                this.endereco = end;
-                this.responsaveis.add(responsavel);
-                this.cozinha = cozinha;
-                this.quantidadeProdutos = 0;
+        this.nome = nome;
+        this.taxaFrete = taxaFrete;
+        this.ativo = ativo;
+        this.aberto = aberto;
+        this.dataCadastro = dataCadastro;
+        this.dataAtualizacao = dataAtualizacao;
+        this.endereco = endereco;
+        this.responsaveis = responsaveis;
+        this.cozinha = cozinha;
+        this.formasPagamento = formasPagamento;
+        
     }
 
-    public void cadastrarProdutos(){}
+    public void cadastrarProdutos(Produto produto){
+        this.getProdutos().add(produto);
+    }
 
     public void adicionarFormaPag(){}
 
     public void abrirRestaurante(){
-        if(this.quantidadeProdutos==0){
+        if(this.produtos.size()==0){
             System.out.printf("Não há produtos registrados\n");
         }
         else this.aberto = true;        
@@ -99,12 +62,6 @@ public class Restaurante {
         this.aberto = false;
     }
 
-    public int getQuantidadeProdutos() {
-        return quantidadeProdutos;
-    }
-    public void setQuantidadeProdutos(int quantidadeProdutos) {
-        this.quantidadeProdutos = quantidadeProdutos;
-    }
     public String getNome() {
         return nome;
     }
@@ -162,10 +119,10 @@ public class Restaurante {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    public BigDecimal getTaxaFrete() {
+    public float getTaxaFrete() {
         return taxaFrete;
     }
-    public void setTaxaFrete(BigDecimal taxaFrete) {
+    public void setTaxaFrete(float taxaFrete) {
         this.taxaFrete = taxaFrete;
     }
     public void setNome(String nome) {

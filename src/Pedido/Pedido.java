@@ -3,22 +3,45 @@ import Common.Endereco;
 import Usuario.Usuario;
 import Restaurante.Restaurante;
 import FormaPagamento.FormaPagamento;
-import java.math.BigDecimal;
+import Pedido.StatusPedido;
 import java.util.ArrayList;
 import java.util.Date;
+
 
 public class Pedido {
 
     private String codigo;
-    private BigDecimal subtotal, taxaFrete;
+    private float subtotal, taxaFrete;
     private Date dataCriacao, dataConfirmacao, dataEntrega, dataCancelamento; 
     private ArrayList <ItemPedido> itens = new ArrayList<ItemPedido>();
-    private StatusPedido status;
+    private StatusPedido.status status;
     private Endereco enderecoEntrega;
     private Usuario cliente;
     private Restaurante restaurante;
     private FormaPagamento formaPagamento;
     
+
+    public Pedido(String codigo, float subtotal, float taxaFrete, Date dataCriacao, ArrayList<ItemPedido> itens, Endereco enderecoEntrega, Usuario cliente, Restaurante restaurante,
+            FormaPagamento formaPagamento) {
+        this.codigo = codigo;
+        this.subtotal = subtotal;
+        this.taxaFrete = taxaFrete;
+        this.dataCriacao = dataCriacao;
+        this.itens = itens;
+        this.status = StatusPedido.status.CRIADO;
+        this.enderecoEntrega = enderecoEntrega;
+        this.cliente = cliente;
+        this.restaurante = restaurante;
+        this.formaPagamento = formaPagamento;
+    }
+
+    public StatusPedido.status getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPedido.status status) {
+        this.status = status;
+    }
 
     public FormaPagamento getFormaPagamento() {
         return formaPagamento;
@@ -43,12 +66,6 @@ public class Pedido {
     }
     public void setEnderecoEntrega(Endereco enderecoEntrega) {
         this.enderecoEntrega = enderecoEntrega;
-    }
-    public StatusPedido getStatus() {
-        return status;
-    }
-    public void setStatus(StatusPedido status) {
-        this.status = status;
     }
     public ArrayList <ItemPedido> getItens() {
         return itens;
@@ -80,16 +97,16 @@ public class Pedido {
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
-    public BigDecimal getTaxaFrete() {
+    public float getTaxaFrete() {
         return taxaFrete;
     }
-    public void setTaxaFrete(BigDecimal taxaFrete) {
+    public void setTaxaFrete(float taxaFrete) {
         this.taxaFrete = taxaFrete;
     }
-    public BigDecimal getSubtotal() {
+    public float getSubtotal() {
         return subtotal;
     }
-    public void setSubtotal(BigDecimal subtotal) {
+    public void setSubtotal(float subtotal) {
         this.subtotal = subtotal;
     }
     public String getCodigo() {

@@ -3,6 +3,11 @@ package Permissao;
 public class Permissao {
     private String nome, descricao;
 
+    public Permissao(String nome, String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+
     public String getNome() {
         return nome;
     }
