@@ -8,6 +8,13 @@ public class Usuario {
     private Date dataCadastro;
     private ArrayList <Grupo> grupos = new ArrayList<Grupo>();
 
+    public Usuario(String nome, String email, String senha, Date dataCadastro, ArrayList<Grupo> grupos) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.dataCadastro = dataCadastro;
+        this.grupos = grupos;
+    }
     public String getNome() {
         return nome;
     }
