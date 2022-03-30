@@ -6,11 +6,11 @@ import Produto.Produto;
 
 public class ItemPedido {
     private int quantidade;
-    private float precoUnitario, precoTotal; 
+    private BigDecimal precoUnitario, precoTotal; 
     private String observacao;
     private Produto produto;
 
-    public ItemPedido(int quantidade, float precoUnitario, float precoTotal, String observacao,
+    public ItemPedido(int quantidade, BigDecimal precoUnitario, BigDecimal precoTotal, String observacao,
             Produto produto) {
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;

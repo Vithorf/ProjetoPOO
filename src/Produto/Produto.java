@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 
 public class Produto {
     private String nome, descricao;
-    private float preco;
+    private BigDecimal preco;
     private boolean ativo;
     private FotoProduto foto;
     
-    public Produto(String nome, String descricao, float i, boolean ativo, FotoProduto foto) {
+    public Produto(String nome, String descricao, BigDecimal preco, boolean ativo, FotoProduto foto) {
         this.nome = nome;
         this.descricao = descricao;
-        this.preco = i;
+        this.preco = preco;
         this.ativo = ativo;
         this.foto = foto;
     }
@@ -30,10 +30,10 @@ public class Produto {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    public float getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
-    public void setPreco(float preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
     public String getDescricao() {
