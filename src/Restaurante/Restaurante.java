@@ -12,12 +12,13 @@ import java.util.Scanner;
 import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.Date;
+import java.math.BigDecimal;
 
 
 
 public class Restaurante {
     private String nome;
-    private float taxaFrete;
+    private BigDecimal taxaFrete;
     private boolean ativo, aberto;
     private Date dataCadastro, dataAtualizacao;
     private Endereco endereco; 
@@ -28,7 +29,7 @@ public class Restaurante {
     
 
 
-    public Restaurante(String nome, float taxaFrete, boolean ativo, boolean aberto, Date dataCadastro,
+    public Restaurante(String nome, BigDecimal taxaFrete, boolean ativo, boolean aberto, Date dataCadastro,
             Date dataAtualizacao, Endereco endereco, ArrayList<Usuario> responsaveis, Cozinha cozinha,
             ArrayList<FormaPagamento> formasPagamento) {
                 
@@ -119,7 +120,7 @@ public class Restaurante {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    public float getTaxaFrete() {
+    public BigDecimal getTaxaFrete() {
         return taxaFrete;
     }
     public void setTaxaFrete(float taxaFrete) {
