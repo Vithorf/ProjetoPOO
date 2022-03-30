@@ -1,4 +1,5 @@
 package Pedido;
+
 import Common.Endereco;
 import Usuario.Usuario;
 import Restaurante.Restaurante;
@@ -6,12 +7,13 @@ import FormaPagamento.FormaPagamento;
 import Pedido.StatusPedido;
 import java.util.ArrayList;
 import java.util.Date;
+import java.math.BigDecimal;
 
 
 public class Pedido {
 
     private String codigo;
-    private float subtotal, taxaFrete;
+    private BigDecimal subtotal, taxaFrete, valorTotal;
     private Date dataCriacao, dataConfirmacao, dataEntrega, dataCancelamento; 
     private ArrayList <ItemPedido> itens = new ArrayList<ItemPedido>();
     private StatusPedido.status status;
@@ -21,7 +23,7 @@ public class Pedido {
     private FormaPagamento formaPagamento;
     
 
-    public Pedido(String codigo, float subtotal, float taxaFrete, Date dataCriacao, ArrayList<ItemPedido> itens, Endereco enderecoEntrega, Usuario cliente, Restaurante restaurante,
+    public Pedido(String codigo, BigDecimal subtotal, BigDecimal taxaFrete, Date dataCriacao, ArrayList<ItemPedido> itens, Endereco enderecoEntrega, Usuario cliente, Restaurante restaurante,
             FormaPagamento formaPagamento) {
         this.codigo = codigo;
         this.subtotal = subtotal;
@@ -33,6 +35,8 @@ public class Pedido {
         this.cliente = cliente;
         this.restaurante = restaurante;
         this.formaPagamento = formaPagamento;
+
+        this.valorTotal = this.subtotal.add(this.taxaFrete);
     }
 
     public StatusPedido.status getStatus() {
@@ -97,18 +101,23 @@ public class Pedido {
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
-    public float getTaxaFrete() {
+    public BigDecimal getTaxaFrete() {
         return taxaFrete;
     }
-    public void setTaxaFrete(float taxaFrete) {
+    public void setTaxaFrete(BigDecimal taxaFrete) {
         this.taxaFrete = taxaFrete;
     }
-    public float getSubtotal() {
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
-    public void setSubtotal(float subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
     public String getCodigo() {
         return codigo;
     }
