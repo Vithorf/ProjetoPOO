@@ -123,7 +123,7 @@ public class Restaurante {
     public BigDecimal getTaxaFrete() {
         return taxaFrete;
     }
-    public void setTaxaFrete(float taxaFrete) {
+    public void setTaxaFrete(BigDecimal taxaFrete) {
         this.taxaFrete = taxaFrete;
     }
     public void setNome(String nome) {

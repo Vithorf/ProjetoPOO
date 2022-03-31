@@ -1,7 +1,12 @@
 package Usuario;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 import Grupo.Grupo;
+import Pedido.StatusPedido.status;
+import java.util.Date;
+import Grupo.Grupo;
+import Permissao.Permissao;
 
 public class Usuario {
     private String nome, email, senha;
@@ -15,6 +20,105 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
         this.grupos = grupos;
     }
+
+    public static Usuario criarUsuario(ArrayList<Grupo> grp){
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Insira o nome do usuário: ");
+        String nome = in.nextLine();
+
+        System.out.println("Insira o email do usuário: ");
+        String email = in.nextLine();
+
+        System.out.println("Insira a senha do usuário: ");
+        String senha = in.nextLine();
+
+        Date dataCadastro = new Date();
+        ArrayList<Grupo> grupos = grp;
+
+        Usuario novo = new Usuario(nome, email, senha, dataCadastro, grupos);
+        return novo;
+    }
+
+    public void exibirUsuario(){
+        System.out.println("\nNome do usuário: "+this.getNome()+"\nEmail: "+this.getEmail()+"\nData de cadastro: "+this.getDataCadastro().toString()+"Grpos: ");
+        for (int i = 0;i<this.getGrupos().size();i++){
+            System.out.println(this.getGrupos().get(i)+"\n");
+        }
+
+    }
+
+    public Usuario atualizarUsuario(){
+
+        String a;
+        Scanner in = new Scanner(System.in);
+        this.exibirUsuario();
+        Usuario oldUser = this;
+
+        System.out.println("Atualizar o nome?(y/n");
+        a = in.nextLine();
+        if(a=="y"){
+            System.out.println("Insira o novo nome: ");
+            a = in.nextLine();
+            this.setNome(a);
+        }
+
+        System.out.println("Atualizar o email?(y/n");
+        a = in.nextLine();
+        if(a=="y"){
+            System.out.println("Insira o novo email: ");
+            a = in.nextLine();
+            this.setEmail(a);
+        }
+
+        System.out.println("Atualizar a senha?(y/n");
+        a = in.nextLine();
+        if(a=="y"){
+            do{
+            System.out.println("Insira a antiga senha: ");
+            a = in.nextLine();
+            if(a != this.getSenha()){
+                System.out.println("A senha está incorreta\nTentar novamente?(y/n)");
+                a = in.nextLine();
+                if(a=="n") break;}
+            }while(a!=this.getSenha());
+            if(a!="n"){
+                System.out.println("Insira a nova senha: ");
+                a = in.nextLine();
+                this.setSenha(senha);
+                    System.out.println("Usuário atualizado com sucesso!");
+                    return this;
+            }
+        }
+        else{
+            do{
+                System.out.println("Insira a senha: ");
+                a = in.nextLine();
+                if(a != this.getSenha()){
+                    System.out.println("A senha está incorreta\nTentar novamente?(y/n)");
+                    a = in.nextLine();
+                    if(a=="n") break;}
+                }while(a!=this.getSenha());
+                if(a==this.getSenha()){ 
+                    System.out.println("Usuário atualizado com sucesso!");
+                    return this;
+                }
+        }
+        System.out.println("Nenhuma atualização foi feita!");
+        return oldUser;
+    }
+
+    public ArrayList<Usuario> removeUsuario(ArrayList<Usuario> users,Usuario user){
+        for(int i = 0;i<users.size();i++){
+            if(users.get(i)==user){
+                users.remove(i);
+                break;
+            }
+        }
+        return users;
+    }
+
     public String getNome() {
         return nome;
     }

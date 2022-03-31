@@ -12,6 +12,7 @@ import Cidade.Cidade;
 import Estado.Estado;
 import Produto.FotoProduto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -65,20 +66,20 @@ public class App {
         cidades.add(new Cidade("Juazeiro",estados.get(0)));
 
         ArrayList <Restaurante> restaurantes = new ArrayList<Restaurante>();
-        restaurantes.add(new Restaurante("default",7 ,true,false,now,now, 
+        restaurantes.add(new Restaurante("default",new BigDecimal("7") ,true,false,now,now, 
         new Endereco("123456789", "Casa", "10", "rua c", "Joao 123", cidades.get(1)), usuarios, 
         new Cozinha("Mista"), formaPagamentos ));
         
-        restaurantes.get(0).cadastrarProdutos(new Produto("default", "descricao", 50, true, new FotoProduto("contentType", "nome", "descricao", 3)));
+        restaurantes.get(0).cadastrarProdutos(new Produto("default", "descricao",new BigDecimal("50"), true, new FotoProduto("contentType", "nome", "descricao", 3)));
         Restaurante res = restaurantes.get(0);
         System.out.println("Nome do restaurante: "+res.getNome()+"\nEstado: "+res.getEndereco().getCidade().getEstado().getNome()+"\nCidade: "+res.getEndereco().getCidade().getNome());
 
         ArrayList<Pedido> pedido = new ArrayList<Pedido>();
         ArrayList<ItemPedido> itens = new ArrayList<ItemPedido>();
-        itens.add(new ItemPedido(1, 7, 7, "observacao", restaurantes.get(0).getProdutos().get(0)) );
+        itens.add(new ItemPedido(1, new BigDecimal("7"), new BigDecimal("7"), "observacao", restaurantes.get(0).getProdutos().get(0)) );
         
         pedido.add(new Pedido("código",
-        50,6,now,itens,
+        new BigDecimal("50"),new BigDecimal("6"),now,itens,
         new Endereco("cep", "logradouro", "numero", "complemento", "bairro", cidades.get(1)),
         usuarios.get(1), restaurantes.get(0), formaPagamentos.get(0) ));
         
