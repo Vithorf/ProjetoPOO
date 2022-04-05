@@ -34,6 +34,8 @@ public class Usuario {
         System.out.println("Insira a senha do usuário: ");
         String senha = in.nextLine();
 
+        in.close();
+
         Date dataCadastro = new Date();
         ArrayList<Grupo> grupos = grp;
 
@@ -42,7 +44,7 @@ public class Usuario {
     }
 
     public void exibirUsuario(){
-        System.out.println("\nNome do usuário: "+this.getNome()+"\nEmail: "+this.getEmail()+"\nData de cadastro: "+this.getDataCadastro().toString()+"Grpos: ");
+        System.out.println("\nNome do usuário: "+this.getNome()+"\nEmail: "+this.getEmail()+"\nData de cadastro: "+this.getDataCadastro().toString()+"Grupos: ");
         for (int i = 0;i<this.getGrupos().size();i++){
             System.out.println(this.getGrupos().get(i)+"\n");
         }
@@ -122,6 +124,9 @@ public class Usuario {
     public String getNome() {
         return nome;
     }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
     public ArrayList <Grupo> getGrupos() {
         return grupos;
     }
@@ -145,8 +150,5 @@ public class Usuario {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 }
