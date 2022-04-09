@@ -101,6 +101,7 @@ public class Pedido {
             System.out.println("["+i+1+"] "+cidades.get(i).getNome()+" - "+cidades.get(i).getEstado().getNome()+"\n");
         }
         op = in.nextInt();
+        in.close();
         Cidade cidade = cidades.get(op-1);
         Endereco enderecoEntrega = new Endereco(cep, logradouro, numero, complemento, bairro, cidade);
 
