@@ -50,18 +50,32 @@ public class Pedido {
         
 
         System.out.println("Selecione o restaurante para pedir: ");
-        for ( int i = 0; i<restaurantes.size(); i++){
-            int x = i+1;
-            System.out.println("["+x+"] "+restaurantes.get(i).getNome()+"\n");
+        int j,i;
+        for  (i = 0,j = 0; i<restaurantes.size(); i++){
+            if(restaurantes.get(i).isAberto()){
+                int x = j+1;
+                System.out.println("["+x+"] "+restaurantes.get(i).getNome());
+                j++;
+            }
+
         }
         int op = in.nextInt();
-        Restaurante restaurante = restaurantes.get(op-1);
+        in.nextLine();
+        //op--;
+        for( i = 0,j = -1;i<restaurantes.size();i++){
+            if(restaurantes.get(i).isAberto()){
+                op--;
+            }
+            j++;
+            if(op==0) break;
+        }
+        Restaurante restaurante = restaurantes.get(j);
         ArrayList<ItemPedido> itens = new ArrayList<ItemPedido>();
         String conti;
 
         do{
             System.out.println("Selecione o produto: ");
-            for ( int i = 0; i<restaurante.getProdutos().size(); i++){
+            for ( i = 0; i<restaurante.getProdutos().size(); i++){
                 int x = i+1;
                 System.out.println("["+x+"] "+restaurante.getProdutos().get(i).getNome()+"\n");
             }
@@ -83,7 +97,7 @@ public class Pedido {
         }while(conti.equals("y"));
 
         System.out.println("Adicionar forma de pagamento: ");
-        for ( int i = 0; i<restaurante.getFormasPagamento().size(); i++){
+        for ( i = 0; i<restaurante.getFormasPagamento().size(); i++){
             int x = i+1;
             System.out.println("["+x+"] "+restaurante.getFormasPagamento().get(i).getDescricao()+"\n");
         }
@@ -103,7 +117,7 @@ public class Pedido {
         System.out.println("\nInsira o bairro: ");
         String bairro = in.nextLine();
         System.out.println("\nInsira o a cidade: ");
-        for(int i = 0; i<cidades.size();i++){
+        for( i = 0; i<cidades.size();i++){
             int x = i+1;
             System.out.println("["+x+"] "+cidades.get(i).getNome()+" - "+cidades.get(i).getEstado().getNome()+"\n");
         }
@@ -114,18 +128,32 @@ public class Pedido {
 
         String codigo = "";
         codigo += restaurante.getNome().substring(0, 3)+"#";
-        for ( int i = 0; i<itens.size(); i++){
+        for ( i = 0; i<itens.size(); i++){
             codigo+=itens.get(i).getProduto().getNome().substring(0, 3)+"-";
             subtotal.add(itens.get(i).getPrecoTotal());
         }
         codigo+=now.toString();
-
+        in.close();
         Date dataCriacao = now;
         BigDecimal taxaFrete = restaurante.getTaxaFrete();
         System.out.println("\nPedido Criado com sucesso!\nStatus");
         Pedido ped = new Pedido(codigo, subtotal, taxaFrete, dataCriacao, itens, enderecoEntrega, cliente, restaurante, formaPagamento);
         System.out.println("\nPedido Criado com sucesso!\nStatus: "+ped.getStatus().name());
+        ped.exibirPedido();
         return ped;
+    }
+
+    public void exibirPedido(){
+        System.out.println("\n\nPedido "+this.getCodigo()+
+        "\n\nRestaurante: "+this.getRestaurante().getNome()+
+        "\nValor do frete: "+this.getRestaurante().getTaxaFrete().toString()+
+        "\nForma de pagamento: "+this.getFormaPagamento().getDescricao()+
+        "\nCliente: "+this.getCliente().getNome()+
+        "Data de criação: "+this.getDataCriacao().toString()+
+        "\nEndereço de entrega: "
+        );
+        this.getEnderecoEntrega().exibirEndereco();
+
     }
 
     public StatusPedido.status getStatus() {
