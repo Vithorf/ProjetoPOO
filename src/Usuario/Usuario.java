@@ -58,7 +58,7 @@ public class Usuario {
         this.exibirUsuario();
         Usuario oldUser = this;
 
-        System.out.println("Atualizar o nome?(y/n");
+        System.out.println("Atualizar o nome? (y/n)");
         a = in.nextLine();
         if(a=="y"){
             System.out.println("Insira o novo nome: ");
@@ -66,7 +66,7 @@ public class Usuario {
             this.setNome(a);
         }
 
-        System.out.println("Atualizar o email?(y/n");
+        System.out.println("Atualizar o email? (y/n)");
         a = in.nextLine();
         if(a=="y"){
             System.out.println("Insira o novo email: ");
@@ -74,7 +74,7 @@ public class Usuario {
             this.setEmail(a);
         }
 
-        System.out.println("Atualizar a senha?(y/n");
+        System.out.println("Atualizar a senha? (y/n)");
         a = in.nextLine();
         if(a=="y"){
             do{
