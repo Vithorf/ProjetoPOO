@@ -46,6 +46,8 @@ public class App {
         responsaveis.add(new Responsavel("Joao", "joao@gmail.com", "Joao123", now, grp));
         grp.clear();
 
+        responsaveis.get(0).atualizarDados();
+
         grp.add(grupos.get(1));
         responsaveis.add(new Responsavel("jose", "email", "senha", now, grp));
 
