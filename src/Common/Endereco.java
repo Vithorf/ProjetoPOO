@@ -21,6 +21,18 @@ public class Endereco {
         this.bairro = bairro;
         this.cidade = cidade;
     }
+
+    public void exibirEndereco(){
+        System.out.println("\nCidade: "+this.getCidade().getNome()+
+        "\nEstado: "+this.getCidade().getEstado().getNome()+
+        "\nCEP: "+this.getCep()+
+        "\nBairro: "+this.getBairro()+
+        "\nNúmero: "+this.getNumero()+
+        "\nComplemento: "+this.getComplemento()+
+        "\nLogradouro: "+this.getLogradouro()
+        );
+    }
+
     public String getCep() {
         return cep;
     }
