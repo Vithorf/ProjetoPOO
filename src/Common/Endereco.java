@@ -1,12 +1,5 @@
 package Common;
 import Cidade.Cidade;
-import Estado.Estado;
-
-import java.math.BigDecimal;
-import java.util.Scanner;
-import java.text.Normalizer.Form;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class Endereco {
     private String cep, logradouro, numero, complemento, bairro;

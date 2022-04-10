@@ -4,7 +4,6 @@ import Common.Endereco;
 import Usuario.Usuario;
 import Restaurante.Restaurante;
 import FormaPagamento.FormaPagamento;
-import Pedido.StatusPedido;
 import Produto.Produto;
 
 import java.util.ArrayList;
@@ -140,6 +139,7 @@ public class Pedido {
         Pedido ped = new Pedido(codigo, subtotal, taxaFrete, dataCriacao, itens, enderecoEntrega, cliente, restaurante, formaPagamento);
         System.out.println("\nPedido Criado com sucesso!\nStatus: "+ped.getStatus().name());
         ped.exibirPedido();
+
         return ped;
     }
 
@@ -166,7 +166,7 @@ public class Pedido {
     }
 
     public void setStatusEntregue() {
-        this.status = status.ENTREGE;
+        this.status = status.ENTREGUE;
         System.out.println("\nStatus: "+this.getStatus().name());
     }
 

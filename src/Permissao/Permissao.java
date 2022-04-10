@@ -1,15 +1,16 @@
 package Permissao;
 
 public class Permissao {
-    private String nome, descricao;
+    private int nivel;
+    private String descricao;
 
-    public Permissao(String nome, String descricao) {
-        this.nome = nome;
+    public Permissao(int nivel, String descricao) {
+        this.nivel = nivel;
         this.descricao = descricao;
     }
 
-    public String getNome() {
-        return nome;
+    public int getNivel() {
+        return nivel;
     }
 
     public String getDescricao() {
@@ -20,7 +21,7 @@ public class Permissao {
         this.descricao = descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 }

@@ -3,12 +3,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import Grupo.Grupo;
-import Pedido.StatusPedido.status;
-import java.util.Date;
-import Grupo.Grupo;
-import Permissao.Permissao;
+import Interfaces.CRUDUser;
 
-public class Usuario {
+public class Usuario implements CRUDUser {
     private String nome, email, senha;
     private Date dataCadastro;
     private ArrayList <Grupo> grupos = new ArrayList<Grupo>();
@@ -19,6 +16,14 @@ public class Usuario {
         this.senha = senha;
         this.dataCadastro = dataCadastro;
         this.grupos = grupos;
+    }
+
+    public Usuario(String nome, String email, String senha, Date dataCadastro) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.dataCadastro = dataCadastro;
+        this.grupos = null;
     }
 
     public static Usuario criarUsuario(ArrayList<Grupo> grp){
@@ -43,7 +48,7 @@ public class Usuario {
         return novo;
     }
 
-    public void exibirUsuario(){
+    public void exibirDados(){
         System.out.println("\nNome do usuário: "+this.getNome()+"\nEmail: "+this.getEmail()+"\nData de cadastro: "+this.getDataCadastro().toString()+"Grupos: ");
         for (int i = 0;i<this.getGrupos().size();i++){
             System.out.println(this.getGrupos().get(i)+"\n");
@@ -51,12 +56,11 @@ public class Usuario {
 
     }
 
-    public Usuario atualizarUsuario(){
+    public void atualizarDados(){
 
         String a;
         Scanner in = new Scanner(System.in);
-        this.exibirUsuario();
-        Usuario oldUser = this;
+        this.exibirDados();
 
         System.out.println("Atualizar o nome? (y/n)");
         a = in.nextLine();
@@ -90,7 +94,6 @@ public class Usuario {
                 a = in.nextLine();
                 this.setSenha(senha);
                     System.out.println("Usuário atualizado com sucesso!");
-                    return this;
             }
         }
         else{
@@ -104,14 +107,13 @@ public class Usuario {
                 }while(a!=this.getSenha());
                 if(a==this.getSenha()){ 
                     System.out.println("Usuário atualizado com sucesso!");
-                    return this;
                 }
         }
         System.out.println("Nenhuma atualização foi feita!");
-        return oldUser;
+        in.close();
     }
 
-    public ArrayList<Usuario> removeUsuario(ArrayList<Usuario> users,Usuario user){
+    public ArrayList<Usuario> removerUsuario(ArrayList<Usuario> users,Usuario user){
         for(int i = 0;i<users.size();i++){
             if(users.get(i)==user){
                 users.remove(i);

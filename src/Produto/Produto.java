@@ -28,6 +28,8 @@ public class Produto {
         String preco = in.nextLine();
         FotoProduto foto = new FotoProduto("jpg", "nome.jpg", "descricao", 3);
 
+        in.close();
+
         Produto produto = new Produto(nome, desc, new BigDecimal(preco), true, foto);
         System.out.println("Produto cadastrado com sucesso!\n\n");
         return produto;

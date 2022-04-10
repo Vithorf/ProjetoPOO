@@ -1,21 +1,17 @@
 package Restaurante;
 
 import Common.Endereco;
-import Cidade.Cidade;
-import Estado.Estado;
 import Produto.Produto;
-import Usuario.Usuario;
+import Responsavel.Responsavel;
 import Cozinha.Cozinha;
 import FormaPagamento.FormaPagamento;
 import Grupo.Grupo;
 import Permissao.Permissao;
 
 import java.util.Scanner;
-import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.Date;
 import java.math.BigDecimal;
-import java.nio.file.Files;
 
 
 
@@ -25,7 +21,7 @@ public class Restaurante {
     private boolean ativo, aberto;
     private Date dataCadastro, dataAtualizacao;
     private Endereco endereco; 
-    private ArrayList<Usuario>responsaveis = new ArrayList<Usuario>();
+    private ArrayList<Responsavel> responsaveis = new ArrayList<Responsavel>();
     private Cozinha cozinha;
     private ArrayList<FormaPagamento>formasPagamento = new ArrayList<FormaPagamento>();
     private ArrayList<Produto>produtos = new ArrayList<Produto>();
@@ -35,7 +31,7 @@ public class Restaurante {
     public Restaurante(String nome, BigDecimal taxaFrete, 
     boolean ativo, boolean aberto, Date dataCadastro,
             Date dataAtualizacao, Endereco endereco, 
-            ArrayList<Usuario> responsaveis, Cozinha cozinha,
+            ArrayList<Responsavel> responsaveis, Cozinha cozinha,
             ArrayList<FormaPagamento> formasPagamento) {
                 
         this.nome = nome;
@@ -51,7 +47,7 @@ public class Restaurante {
         
     }
 
-    public static Restaurante criarRestaurante(Endereco e, ArrayList<Usuario> u, Cozinha c, ArrayList<FormaPagamento> fp){
+    public static Restaurante criarRestaurante(Endereco e, ArrayList<Responsavel> u, Cozinha c, ArrayList<FormaPagamento> fp){
 
         Scanner in = new Scanner(System.in);
 
@@ -62,9 +58,11 @@ public class Restaurante {
         String tf = in.nextLine();
         BigDecimal taxaFrete = new BigDecimal(tf);
 
+        in.close();
+        
         Endereco endereco = e;
         Date dataCadastro = new Date();
-        ArrayList<Usuario> responsaveis = u;
+        ArrayList<Responsavel> responsaveis = u;
         Cozinha cozinha = c;
         ArrayList<FormaPagamento> formasPagamento = fp;
 
@@ -180,7 +178,7 @@ public class Restaurante {
         System.out.println("\n\nResponsaveis atuais: ");
         this.getResponsaveis().forEach((responsavel) -> System.out.println("\n- "+responsavel.getNome()));
 
-        ArrayList<Usuario> newResponsaveis = currentRestaurant.getResponsaveis();
+        ArrayList<Responsavel> newResponsaveis = currentRestaurant.getResponsaveis();
         System.out.println("\n\nDeseja apagar os responsaveis atuais e inserir novos? (y/n)");
         field = in.nextLine();
 
@@ -190,15 +188,15 @@ public class Restaurante {
         while (field == "y") {
 
             ArrayList<Permissao> permissoes = new ArrayList<>();
-            Permissao media = new Permissao("Media", "Controle de restaurante/Gerenciar pedidos/Controle de produtos");
+            Permissao media = new Permissao(2, "Controle de restaurante/Gerenciar pedidos/Controle de produtos");
             permissoes.add(media);
 
             ArrayList<Grupo> grp = new ArrayList<>();
             Grupo responsaveis = new Grupo("Responsavel", permissoes);
             grp.add(responsaveis);
 
-            Usuario newUser = Usuario.criarUsuario(grp);
-            newResponsaveis.add(newUser);
+            Responsavel newResponsavel = Responsavel.criarResponsavel(grp);
+            newResponsaveis.add(newResponsavel);
 
             System.out.println("\nDeseja adicionar mais um responsavel? (y/n)");
             field = in.nextLine();    
@@ -243,9 +241,9 @@ public class Restaurante {
         return currentRestaurant;
     }
 
-    public void removeRestaurante(ArrayList<Restaurante> listaRestaurantes, Restaurante restaurante) {
+    public void removerRestaurante(ArrayList<Restaurante> listaRestaurantes) {
         listaRestaurantes.forEach(r -> {
-            if (r == restaurante) {
+            if (r == this) {
                 listaRestaurantes.remove(r);
             }
         });
@@ -292,10 +290,10 @@ public class Restaurante {
     public void setCozinha(Cozinha cozinha) {
         this.cozinha = cozinha;
     }
-    public ArrayList<Usuario> getResponsaveis() {
+    public ArrayList<Responsavel> getResponsaveis() {
         return responsaveis;
     }
-    public void setResponsaveis(ArrayList<Usuario> responsaveis) {
+    public void setResponsaveis(ArrayList<Responsavel> responsaveis) {
         this.responsaveis = responsaveis;
     }
     public Endereco getEndereco() {
