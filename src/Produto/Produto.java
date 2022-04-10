@@ -1,6 +1,7 @@
 package Produto;
 
 import java.math.BigDecimal;
+import java.util.Scanner;
 
 public class Produto {
     private String nome, descricao;
@@ -15,6 +16,23 @@ public class Produto {
         this.ativo = ativo;
         this.foto = foto;
     }
+
+    public static Produto criaProduto(){
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Insira o nome do produto: ");
+        String nome = in.nextLine();
+        System.out.println("Insira a descrição do produto: ");
+        String desc = in.nextLine();
+        System.out.println("Insira o preço do produto: ");
+        String preco = in.nextLine();
+        FotoProduto foto = new FotoProduto("jpg", "nome.jpg", "descricao", 3);
+
+        Produto produto = new Produto(nome, desc, new BigDecimal(preco), true, foto);
+        System.out.println("Produto cadastrado com sucesso!\n\n");
+        return produto;
+    }
+
     public String getNome() {
         return nome;
     }
