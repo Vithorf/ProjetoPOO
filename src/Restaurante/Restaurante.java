@@ -60,15 +60,13 @@ public class Restaurante {
         String tf = in.nextLine();
         BigDecimal taxaFrete = new BigDecimal(tf);
 
-        in.close();
-
         Endereco endereco = e;
         Date dataCadastro = new Date();
         ArrayList<Usuario> responsaveis = u;
         Cozinha cozinha = c;
         ArrayList<FormaPagamento> formasPagamento = fp;
 
-        Restaurante novo = new Restaurante(nome, taxaFrete, true, true, dataCadastro, dataCadastro, endereco, responsaveis, cozinha, formasPagamento);
+        Restaurante novo = new Restaurante(nome, taxaFrete, true, false, dataCadastro, dataCadastro, endereco, responsaveis, cozinha, formasPagamento);
         return novo;
     }
 
@@ -229,7 +227,7 @@ public class Restaurante {
         //
     }
 
-    public void cadastrarProdutos(Produto produto){
+    public void cadastrarProduto(Produto produto){
         this.getProdutos().add(produto);
     }
 
