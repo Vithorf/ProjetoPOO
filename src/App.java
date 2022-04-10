@@ -70,63 +70,30 @@ public class App {
         new Endereco("123456789", "Casa", "10", "rua c", "Joao 123", cidades.get(1)), usuarios, 
         new Cozinha("Mista"), formaPagamentos ));
         
-        restaurantes.get(0).cadastrarProdutos(new Produto("default", "descricao",new BigDecimal("50"), true, new FotoProduto("contentType", "nome", "descricao", 3)));
+        restaurantes.get(0).cadastrarProduto(Produto.criaProduto());
         Restaurante res = restaurantes.get(0);
-        System.out.println("Nome do restaurante: "+res.getNome()+"\nEstado: "+res.getEndereco().getCidade().getEstado().getNome()+"\nCidade: "+res.getEndereco().getCidade().getNome());
+        restaurantes.get(0).abrirRestaurante();
 
-        ArrayList<Pedido> pedido = new ArrayList<Pedido>();
-        ArrayList<ItemPedido> itens = new ArrayList<ItemPedido>();
-        itens.add(new ItemPedido(1, new BigDecimal("7"), new BigDecimal("7"), "observacao", restaurantes.get(0).getProdutos().get(0)) );
-        
-        pedido.add(new Pedido("código",
-        new BigDecimal("50"),new BigDecimal("6"),now,itens,
-        new Endereco("cep", "logradouro", "numero", "complemento", "bairro", cidades.get(1)),
-        usuarios.get(1), restaurantes.get(0), formaPagamentos.get(0) ));
+        ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+    
+        ArrayList<Usuario> u = new ArrayList<Usuario>();
+        u.add(usuarios.get(0));
 
-        Pedido pd = Pedido.criaPedido(restaurantes, usuarios.get(0), cidades);
-        
-        
-       /* System.out.printf("Informe os dados do seu novo restaurante:\n");
-        
-        
-        String nomeRestaurante = entrada.nextLine();
+        restaurantes.add(Restaurante.criarRestaurante(res.getEndereco(), u, new Cozinha("nome"),formaPagamentos));
+        restaurantes.get(1).getProdutos().add(Produto.criaProduto());
+        restaurantes.get(1).abrirRestaurante();
 
-        System.out.printf("Valor do frete em R$:\n");
-        BigDecimal freteRestaurante = entrada.nextBigDecimal();
+        restaurantes.add(new Restaurante("default2",new BigDecimal("7") ,true,false,now,now, 
+        new Endereco("123456789", "Casa", "10", "rua c", "Joao 123", cidades.get(1)), usuarios, 
+        new Cozinha("Mista"), formaPagamentos ));
 
-        System.out.printf("O restaurante está ativo? [y/n]\n");
-        boolean ativoRestaurante = entrada.nextLine() == "y" ? true : false;
-
-        System.out.printf("Informe quem é o primeiro responsável pelo restaurante\n(demais responsáveis poderão ser adicionados posteriormente)\n");
-        
-        Usuario responsavel = new Usuario();
-
-        System.out.printf("Nome:\n");
-        String nomeResp = entrada.nextLine();
-        responsavel.setNome(nomeResp);
-
-        System.out.printf("E-mail:\n");
-        String emailResp = entrada.nextLine();
-        responsavel.setEmail(emailResp);
-
-        System.out.printf("Senha:\n");
-        String senhaResp = entrada.nextLine();
-        responsavel.setSenha(senhaResp);
-        
-        // definir grupo e permiissão do grupo
-
-        System.out.printf("Informe o endereço do restaurante:\n");
+        restaurantes.get(2).cadastrarProduto(Produto.criaProduto());
+        restaurantes.get(2).abrirRestaurante();
         
 
-        Endereco end = new Endereco();
+        pedidos.add(Pedido.criaPedido(restaurantes, usuarios.get(0), cidades));
         
-        Cozinha cozinha = new Cozinha();
-        System.out.printf("Nome da Cozinha:\n");
-        String nomeCozinha = entrada.nextLine();
-        cozinha.setNome(nomeCozinha);
-
-        Restaurante res = new Restaurante(nomeRestaurante,freteRestaurante,ativoRestaurante,false,now,now,end, responsavel,cozinha);*/
-        
+    
         
         // CRIA RESTAURANTE
         
