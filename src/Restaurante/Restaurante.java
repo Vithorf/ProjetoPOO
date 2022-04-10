@@ -7,6 +7,8 @@ import Produto.Produto;
 import Usuario.Usuario;
 import Cozinha.Cozinha;
 import FormaPagamento.FormaPagamento;
+import Grupo.Grupo;
+import Permissao.Permissao;
 
 import java.util.Scanner;
 import java.text.Normalizer.Form;
@@ -175,44 +177,62 @@ public class Restaurante {
             changeCounter++; 
         }
 
-        /*
-        ArrayList<Usuario> newResponsaveis = currentRestaurant.getResponsaveis();
+        System.out.println("\n\nResponsaveis atuais: ");
+        this.getResponsaveis().forEach((responsavel) -> System.out.println("\n- "+responsavel.getNome()));
 
-        System.out.println("\nDeseja atualizar os responsaveis? (y/n)");
+        ArrayList<Usuario> newResponsaveis = currentRestaurant.getResponsaveis();
+        System.out.println("\n\nDeseja apagar os responsaveis atuais e inserir novos? (y/n)");
         field = in.nextLine();
 
-        ArrayList<Usuario> responsaveis;
+        if (field == "y")
+        newResponsaveis.clear();
+        
         while (field == "y") {
 
-            System.out.println("\nNome: ");
-            String nome = in.nextLine();
-            if (field == "") break;
+            ArrayList<Permissao> permissoes = new ArrayList<>();
+            Permissao media = new Permissao("Media", "Controle de restaurante/Gerenciar pedidos/Controle de produtos");
+            permissoes.add(media);
 
-            System.out.println("\nE-mail: ");
-            String nome = in.nextLine();
-            if (field == "") break;
+            ArrayList<Grupo> grp = new ArrayList<>();
+            Grupo responsaveis = new Grupo("Responsavel", permissoes);
+            grp.add(responsaveis);
 
-            System.out.println("\nSenha: ");
-            String nome = in.nextLine();
-            if (field == "") break;
+            Usuario newUser = Usuario.criarUsuario(grp);
+            newResponsaveis.add(newUser);
 
-            System.out.println("\nGrupo: ");
-            String nome = in.nextLine();
-            if (field == "") break;
-
-
-            else responsaveis.add();
             System.out.println("\nDeseja adicionar mais um responsavel? (y/n)");
             field = in.nextLine();    
         }
-
         currentRestaurant.setResponsaveis(newResponsaveis);
-        */
 
-        // COZINHA
+        System.out.println("Cozinha: ");
+        field = in.nextLine();
+        if (field != "") {
+            Cozinha c = new Cozinha(field);
+            currentRestaurant.setCozinha(c);
+            changeCounter++; 
+        }
 
-        // FORMAS DE PAGAMENTO
+        ArrayList<FormaPagamento> arrayfp = currentRestaurant.getFormasPagamento();
+        System.out.println("\nDeseja apagar as formas de pagamento atuais e inserir novas? (y/n)");
+        field = in.nextLine();    
 
+        if (field == "y")
+            arrayfp.clear();
+
+        while (field == "y") {
+            System.out.println("Forma de pagamento: ");
+            field = in.nextLine();
+            if (field != "") {
+                FormaPagamento fp = new FormaPagamento(field);
+                arrayfp.add(fp);
+                changeCounter++; 
+            }
+            
+            System.out.println("\nDeseja adicionar mais uma forma de pagamento? (y/n)");
+            field = in.nextLine();    
+        }
+        currentRestaurant.setFormasPagamento(arrayfp);
 
         if (changeCounter > 0) {
             Date updatedAt = new Date();
@@ -223,8 +243,12 @@ public class Restaurante {
         return currentRestaurant;
     }
 
-    public void removeRestaurante(Restaurante restaurante) {
-        //
+    public void removeRestaurante(ArrayList<Restaurante> listaRestaurantes, Restaurante restaurante) {
+        listaRestaurantes.forEach(r -> {
+            if (r == restaurante) {
+                listaRestaurantes.remove(r);
+            }
+        });
     }
 
     public void cadastrarProduto(Produto produto){
