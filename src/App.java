@@ -82,6 +82,8 @@ public class App {
         new BigDecimal("50"),new BigDecimal("6"),now,itens,
         new Endereco("cep", "logradouro", "numero", "complemento", "bairro", cidades.get(1)),
         usuarios.get(1), restaurantes.get(0), formaPagamentos.get(0) ));
+
+        Pedido pd = Pedido.criaPedido(restaurantes, usuarios.get(0), cidades);
         
         
        /* System.out.printf("Informe os dados do seu novo restaurante:\n");
