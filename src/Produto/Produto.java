@@ -19,16 +19,13 @@ public class Produto {
 
     public static Produto criaProduto(){
         Scanner in = new Scanner(System.in);
-
-        System.out.println("Insira o nome do produto: ");
+        System.out.println("\n--------Cadastro de produto--------\nInsira o nome do produto: ");
         String nome = in.nextLine();
         System.out.println("Insira a descrição do produto: ");
         String desc = in.nextLine();
         System.out.println("Insira o preço do produto: ");
         String preco = in.nextLine();
         FotoProduto foto = new FotoProduto("jpg", "nome.jpg", "descricao", 3);
-
-        in.close();
 
         Produto produto = new Produto(nome, desc, new BigDecimal(preco), true, foto);
         System.out.println("Produto cadastrado com sucesso!\n\n");
