@@ -19,6 +19,14 @@ public class ItemPedido {
         this.setProduto(produto);
     }
 
+    public void exibirItemPedido(){
+        System.out.println("\nProduto: "+
+        this.getProduto().getNome()+" -------- R$"+this.getPrecoUnitario().toString()+" -------- "+this.getQuantidade()+" Und.\n"+
+        "Observações: "+this.getObservacao()+"\n"+"Total: R$"+this.getPrecoTotal()
+        
+        );
+    }
+
     public Produto getProduto() {
         return produto;
     }
