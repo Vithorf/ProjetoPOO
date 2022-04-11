@@ -51,14 +51,12 @@ public class Restaurante {
 
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Insira o nome do restaurante: ");
+        System.out.println("\n--------Criação de restaurante--------\nInsira o nome do restaurante: ");
         String nome = in.nextLine();
 
         System.out.println("Insira a taxa de frete do restaurante: ");
         String tf = in.nextLine();
         BigDecimal taxaFrete = new BigDecimal(tf);
-
-        in.close();
         
         Endereco endereco = e;
         Date dataCadastro = new Date();
@@ -71,7 +69,8 @@ public class Restaurante {
     }
 
     public void exibirRestaurante(){
-        System.out.println("\n"+this.getNome()
+
+        System.out.println("\n--------Resumo Restaurante "+this.getNome()+"--------"
             +"\nValor do frete (R$): "+this.getTaxaFrete()
             +"\nData de cadastro: "+this.getDataCadastro().toString()
             +"\nData de atualizacao: "+this.getDataAtualizacao().toString()
@@ -253,16 +252,18 @@ public class Restaurante {
         this.getProdutos().add(produto);
     }
 
-    public void adicionarFormaPag(){}
-
     public void abrirRestaurante(){
         if(this.produtos.size()==0){
-            System.out.printf("Não há produtos registrados\n");
+            System.out.printf("O restaurante "+this.getNome()+" não pode ser aberto agora, pois ainda não há produtos registrados\n");
         }
-        else this.aberto = true;        
+        else{
+            System.out.println("Restaurante aberto!");
+            this.aberto = true;
+        }        
     }
 
     public void fecharRestaurante(){
+        System.out.println("Restaurante fechado!");
         this.aberto = false;
     }
 
