@@ -30,7 +30,7 @@ public class Usuario implements CRUDUser {
 
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Insira o nome do usuário: ");
+        System.out.println("\n--------Cadastro de usuário--------\nInsira o nome do usuário: ");
         String nome = in.nextLine();
 
         System.out.println("Insira o email do usuário: ");
@@ -38,8 +38,6 @@ public class Usuario implements CRUDUser {
 
         System.out.println("Insira a senha do usuário: ");
         String senha = in.nextLine();
-
-        in.close();
 
         Date dataCadastro = new Date();
         ArrayList<Grupo> grupos = grp;
@@ -49,9 +47,9 @@ public class Usuario implements CRUDUser {
     }
 
     public void exibirDados(){
-        System.out.println("\nNome do usuário: "+this.getNome()+"\nEmail: "+this.getEmail()+"\nData de cadastro: "+this.getDataCadastro().toString()+"Grupos: ");
+        System.out.println("\nNome do usuário: "+this.getNome()+"\nEmail: "+this.getEmail()+"\nData de cadastro: "+this.getDataCadastro().toString()+"\nGrupos: ");
         for (int i = 0;i<this.getGrupos().size();i++){
-            System.out.println(this.getGrupos().get(i)+"\n");
+            System.out.println(this.getGrupos().get(i).getNome()+"\n");
         }
 
     }
@@ -60,57 +58,69 @@ public class Usuario implements CRUDUser {
 
         String a;
         Scanner in = new Scanner(System.in);
+        Usuario old = this;
+        int at = 0;
         this.exibirDados();
 
-        System.out.println("Atualizar o nome? (y/n)");
+        System.out.println("\n--------Atualização usuário-------\nAtualizar o nome? (y/n)");
         a = in.nextLine();
-        if(a=="y"){
+        if(a.equals("y")){
             System.out.println("Insira o novo nome: ");
             a = in.nextLine();
+            at++;
             this.setNome(a);
         }
 
         System.out.println("Atualizar o email? (y/n)");
         a = in.nextLine();
-        if(a=="y"){
+        if(a.equals("y")){
             System.out.println("Insira o novo email: ");
             a = in.nextLine();
+            at++;
             this.setEmail(a);
         }
 
         System.out.println("Atualizar a senha? (y/n)");
         a = in.nextLine();
-        if(a=="y"){
+        if(a.equals("y")){
             do{
             System.out.println("Insira a antiga senha: ");
             a = in.nextLine();
-            if(a != this.getSenha()){
+            if(!a.equals(this.getSenha())){
                 System.out.println("A senha está incorreta\nTentar novamente?(y/n)");
                 a = in.nextLine();
-                if(a=="n") break;}
-            }while(a!=this.getSenha());
-            if(a!="n"){
+                if(a.equals("n")) break;}
+            }while(!a.equals(this.getSenha()));
+            if(!a.equals("n")){
                 System.out.println("Insira a nova senha: ");
                 a = in.nextLine();
                 this.setSenha(senha);
-                    System.out.println("Usuário atualizado com sucesso!");
+                    System.out.println("\nUsuário atualizado com sucesso!");
+                    at++;
+                    
             }
         }
-        else{
+        else if(at!=0){
             do{
-                System.out.println("Insira a senha: ");
+                System.out.println("Insira a senha para confirmação das atualizações: ");
                 a = in.nextLine();
-                if(a != this.getSenha()){
+                if(!a.equals(this.getSenha())){
                     System.out.println("A senha está incorreta\nTentar novamente?(y/n)");
                     a = in.nextLine();
-                    if(a=="n") break;}
-                }while(a!=this.getSenha());
-                if(a==this.getSenha()){ 
-                    System.out.println("Usuário atualizado com sucesso!");
+                    if(a.equals("n")) break;}
+                }while(!a.equals(this.getSenha()));
+                if(a.equals(this.getSenha())){ 
+                    System.out.println("\nUsuário atualizado com sucesso!");
                 }
         }
+        if(at==0)
         System.out.println("Nenhuma atualização foi feita!");
-        in.close();
+        if(a.equals("n")){
+            this.setNome(old.getNome());
+            this.setEmail(old.getEmail());
+        }
+        this.exibirDados();
+    
     }
 
     public ArrayList<Usuario> removerUsuario(ArrayList<Usuario> users,Usuario user){
