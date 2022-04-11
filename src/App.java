@@ -1,5 +1,4 @@
 import Cidade.Cidade;
-import Cliente.Cliente;
 import Common.Endereco;
 import Cozinha.Cozinha;
 import Estado.Estado;
@@ -12,15 +11,16 @@ import Responsavel.Responsavel;
 import Restaurante.Restaurante;
 import Usuario.Usuario;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
 
         Date now = new Date();
+        Scanner in = new Scanner(System.in);
 
         System.out.println("\n------ APP DE RESTAURANTES ------\n");
 
@@ -41,16 +41,14 @@ public class App {
 
         ArrayList<Responsavel> responsaveis = new ArrayList<>();
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
         ArrayList<Grupo> grp = new ArrayList<Grupo>();
+
+        ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
         
         grp.add(grupos.get(0));
         responsaveis.add(new Responsavel("Joao", "joao@gmail.com", "Joao123", now, grp));
         grp.clear();
-
-        responsaveis.get(0).atualizarDados();
-
-        grp.add(grupos.get(1));
-        responsaveis.add(new Responsavel("jose", "email", "senha", now, grp));
 
         ArrayList<FormaPagamento> formaPagamentos = new ArrayList<FormaPagamento>();
         formaPagamentos.add(new FormaPagamento("Crédito"));
@@ -65,33 +63,38 @@ public class App {
         cidades.add(new Cidade("Petrolina",estados.get(1)));
         cidades.add(new Cidade("Juazeiro",estados.get(0)));
 
-        ArrayList <Restaurante> restaurantes = new ArrayList<Restaurante>();
-        restaurantes.add(new Restaurante("default", new BigDecimal("7"), true, false, now, now, 
-        new Endereco("123456789", "Casa", "10", "rua c", "Joao 123", cidades.get(1)), responsaveis, 
-        new Cozinha("Mista"), formaPagamentos));
-        
-        restaurantes.get(0).cadastrarProduto(Produto.criaProduto());
-        Restaurante res = restaurantes.get(0);
+        ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
+        ArrayList<Responsavel> resp = new ArrayList<>();
+
+        resp.add(responsaveis.get(0));
+        restaurantes.add(Restaurante.criarRestaurante(new Endereco("48900000", "Prédio", "75", "", "Centro", cidades.get(1)),resp , new Cozinha("Brasileira"), formaPagamentos));
+
         restaurantes.get(0).abrirRestaurante();
 
+        String c = "y";
+        while(c.equals("y")){
+            restaurantes.get(0).cadastrarProduto(Produto.criaProduto());
+            System.out.println("Cadastrar outro produto?(y/n) ");
+            c = in.nextLine();
+        }
 
-        ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-    
-        ArrayList<Responsavel> r = new ArrayList<Responsavel>();
-        r.add(responsaveis.get(0));
+        restaurantes.get(0).abrirRestaurante();
 
-        restaurantes.add(Restaurante.criarRestaurante(res.getEndereco(), r, new Cozinha("nome"),formaPagamentos));
-        restaurantes.get(1).getProdutos().add(Produto.criaProduto());
-        restaurantes.get(1).abrirRestaurante();
+        restaurantes.get(0).exibirRestaurante();
 
-        restaurantes.add(new Restaurante("default2",new BigDecimal("7") ,true,false,now,now, 
-        new Endereco("123456789", "Casa", "10", "rua c", "Joao 123", cidades.get(1)), responsaveis, 
-        new Cozinha("Mista"), formaPagamentos ));
+        grp.add(grupos.get(1));
+        usuarios.add(Usuario.criarUsuario(grp));
 
-        restaurantes.get(2).cadastrarProduto(Produto.criaProduto());
-        restaurantes.get(2).abrirRestaurante();
-        
+        usuarios.get(0).atualizarDados();
 
         pedidos.add(Pedido.criaPedido(restaurantes, usuarios.get(0), cidades));
+
+        pedidos.get(0).setStatusConfirmado();
+
+        pedidos.get(0).setStatusEntregue();
+
+
+
+
     }
 }
