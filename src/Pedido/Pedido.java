@@ -48,7 +48,7 @@ public class Pedido {
         BigDecimal subtotal = new BigDecimal(0);
         
 
-        System.out.println("Selecione o restaurante para pedir: ");
+        System.out.println("\n--------Pedido--------\nSelecione o restaurante para pedir: ");
         int j,i;
         for  (i = 0,j = 0; i<restaurantes.size(); i++){
             if(restaurantes.get(i).isAberto()){
@@ -60,7 +60,6 @@ public class Pedido {
         }
         int op = in.nextInt();
         in.nextLine();
-        //op--;
         for( i = 0,j = -1;i<restaurantes.size();i++){
             if(restaurantes.get(i).isAberto()){
                 op--;
@@ -76,7 +75,7 @@ public class Pedido {
             System.out.println("Selecione o produto: ");
             for ( i = 0; i<restaurante.getProdutos().size(); i++){
                 int x = i+1;
-                System.out.println("["+x+"] "+restaurante.getProdutos().get(i).getNome()+"\n");
+                System.out.println("["+x+"] "+restaurante.getProdutos().get(i).getNome()+"\n"+"Descrição: "+restaurante.getProdutos().get(i).getDescricao()+"\n");
             }
             op = in.nextInt();
             Produto produto = restaurante.getProdutos().get(op-1);
@@ -91,6 +90,7 @@ public class Pedido {
             String obs = in.nextLine();
             item.setObservacao(obs);
             itens.add(item);
+            subtotal = subtotal.add(item.getPrecoTotal());
             System.out.println("Adicionar mais produtos?(y/n) ");
             conti = in.nextLine();
         }while(conti.equals("y"));
@@ -128,14 +128,12 @@ public class Pedido {
         String codigo = "";
         codigo += restaurante.getNome().substring(0, 3)+"#";
         for ( i = 0; i<itens.size(); i++){
-            codigo+=itens.get(i).getProduto().getNome().substring(0, 3)+"-";
-            subtotal.add(itens.get(i).getPrecoTotal());
+            codigo+=itens.get(i).getProduto().getNome().substring(0, 3)+itens.get(i).getQuantidade()+"-";
         }
         codigo+=now.toString();
         in.close();
         Date dataCriacao = now;
         BigDecimal taxaFrete = restaurante.getTaxaFrete();
-        System.out.println("\nPedido Criado com sucesso!\nStatus");
         Pedido ped = new Pedido(codigo, subtotal, taxaFrete, dataCriacao, itens, enderecoEntrega, cliente, restaurante, formaPagamento);
         System.out.println("\nPedido Criado com sucesso!\nStatus: "+ped.getStatus().name());
         ped.exibirPedido();
@@ -144,15 +142,19 @@ public class Pedido {
     }
 
     public void exibirPedido(){
-        System.out.println("\n\nPedido "+this.getCodigo()+
+        System.out.println("\n\nCódigo pedido: "+this.getCodigo()+
         "\n\nRestaurante: "+this.getRestaurante().getNome()+
         "\nValor do frete: "+this.getRestaurante().getTaxaFrete().toString()+
         "\nForma de pagamento: "+this.getFormaPagamento().getDescricao()+
         "\nCliente: "+this.getCliente().getNome()+
-        "Data de criação: "+this.getDataCriacao().toString()+
-        "\nEndereço de entrega: "
+        "\nData de criação: "+this.getDataCriacao().toString()+
+        "\n\nEndereço de entrega: "
         );
         this.getEnderecoEntrega().exibirEndereco();
+        System.out.println("\n--------Itens do pedido--------\n");
+        this.itens.forEach(item -> item.exibirItemPedido());
+        System.out.println("\nSubtotal: R$"+this.getSubtotal().toString());
+
 
     }
 
@@ -161,16 +163,22 @@ public class Pedido {
     }
 
     public void setStatusConfirmado() {
+        Date now = new Date();
+        dataConfirmacao = now;
         this.status = status.CONFIRMADO;
         System.out.println("\nStatus: "+this.getStatus().name());
     }
 
     public void setStatusEntregue() {
+        Date now = new Date();
+        dataEntrega = now;
         this.status = status.ENTREGUE;
         System.out.println("\nStatus: "+this.getStatus().name());
     }
 
     public void setStatusCancelado() {
+        Date now = new Date();
+        dataCancelamento = now;
         this.status = status.CANCELADO;
         System.out.println("\nStatus: "+this.getStatus().name());
     }
